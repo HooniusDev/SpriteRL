@@ -1,0 +1,466 @@
+[gd_resource type="TileSet" load_steps=24 format=1]
+
+[ext_resource path="res://Sprites/tilemap_00.png" type="Texture" id=1]
+
+[sub_resource type="OccluderPolygon2D" id=1]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 3, 8, -3, 8, -3, -3, 8, -3, 8, 3, 3, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=2]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, 3, -8, -3, 8, -3, 8, 3, 3, 3, 3, 8, -3, 8, -3, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=14]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -3, -8, 3, -8, 3, 2, -3, 2 )
+
+[sub_resource type="OccluderPolygon2D" id=15]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 3, 3, -3, 3, -3, -3, 3, -3 )
+
+[sub_resource type="OccluderPolygon2D" id=16]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -3, -3, 8, -3, 8, 3, -3, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=17]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, -3, 8, -3, 8, 3, -8, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=18]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, 3, -8, -3, 3, -3, 3, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=19]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -3, -8, 3, -8, 3, 8, -3, 8 )
+
+[sub_resource type="OccluderPolygon2D" id=22]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, -8, 8, -8, 8, 8, -8, 8 )
+
+[sub_resource type="OccluderPolygon2D" id=3]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, 3, -8, -3, 3, -3, 3, 8, -3, 8, -3, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=7]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -3, -8, 3, -8, 3, 8, -3, 8 )
+
+[sub_resource type="OccluderPolygon2D" id=8]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, -3, 8, -3, 8, 3, -8, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=9]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, -3, 8, -3, 8, 3, -8, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=4]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( 3, 8, -3, 8, -3, -3, 3, -3 )
+
+[sub_resource type="OccluderPolygon2D" id=20]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, -3, -3, -3, -3, -8, 3, -8, 3, 8, -3, 8, -3, 3, -8, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=21]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, -3, -3, -3, -3, -8, 3, -8, 3, 8, -3, 8, -3, 3, -8, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=5]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -3, 8, -3, -8, 3, -8, 3, -3, 8, -3, 8, 3, 3, 3, 3, 8 )
+
+[sub_resource type="OccluderPolygon2D" id=6]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, -3, -3, -3, -3, -8, 3, -8, 3, -3, 8, -3, 8, 3, 3, 3, 3, 8, -3, 8, -3, 3, -8, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=10]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, -3, -3, -3, -3, -8, 3, -8, 3, 8, -3, 8, -3, 3, -8, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=11]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -3, -8, 3, -8, 3, -3, 8, -3, 8, 3, -3, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=12]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, 3, -8, -3, -3, -3, -3, -8, 3, -8, 3, -3, 8, -3, 8, 3 )
+
+[sub_resource type="OccluderPolygon2D" id=13]
+
+closed = true
+cull_mode = 0
+polygon = Vector2Array( -8, 3, -8, -3, -3, -3, -3, -8, 3, -8, 3, 3 )
+
+[resource]
+
+0/name = "wall_0110"
+0/texture = ExtResource( 1 )
+0/tex_offset = Vector2( 0, 0 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/occluder_offset = Vector2( 8, 8 )
+0/occluder = SubResource( 1 )
+0/navigation_offset = Vector2( 8, 8 )
+0/shape_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+1/name = "wall_0111"
+1/texture = ExtResource( 1 )
+1/tex_offset = Vector2( 0, 0 )
+1/region = Rect2( 16, 0, 16, 16 )
+1/occluder_offset = Vector2( 8, 8 )
+1/occluder = SubResource( 2 )
+1/navigation_offset = Vector2( 8, 8 )
+1/shape_offset = Vector2( 0, 0 )
+1/shapes = [  ]
+2/name = "wall_0011"
+2/texture = ExtResource( 1 )
+2/tex_offset = Vector2( 0, 0 )
+2/region = Rect2( 32, 0, 16, 16 )
+2/occluder_offset = Vector2( 8, 8 )
+2/occluder = SubResource( 3 )
+2/navigation_offset = Vector2( 8, 8 )
+2/shape_offset = Vector2( 0, 0 )
+2/shapes = [  ]
+3/name = "wall_0010"
+3/texture = ExtResource( 1 )
+3/tex_offset = Vector2( 0, 0 )
+3/region = Rect2( 48, 0, 16, 16 )
+3/occluder_offset = Vector2( 8, 8 )
+3/occluder = SubResource( 4 )
+3/navigation_offset = Vector2( 8, 8 )
+3/shape_offset = Vector2( 0, 0 )
+3/shapes = [  ]
+4/name = "wall_1110"
+4/texture = ExtResource( 1 )
+4/tex_offset = Vector2( 0, 0 )
+4/region = Rect2( 0, 16, 16, 16 )
+4/occluder_offset = Vector2( 8, 8 )
+4/occluder = SubResource( 5 )
+4/navigation_offset = Vector2( 8, 8 )
+4/shape_offset = Vector2( 0, 0 )
+4/shapes = [  ]
+5/name = "wall_1111"
+5/texture = ExtResource( 1 )
+5/tex_offset = Vector2( 0, 0 )
+5/region = Rect2( 16, 16, 16, 16 )
+5/occluder_offset = Vector2( 8, 8 )
+5/occluder = SubResource( 6 )
+5/navigation_offset = Vector2( 8, 8 )
+5/shape_offset = Vector2( 0, 0 )
+5/shapes = [  ]
+6/name = "wall_1011"
+6/texture = ExtResource( 1 )
+6/tex_offset = Vector2( 0, 0 )
+6/region = Rect2( 32, 16, 16, 16 )
+6/occluder_offset = Vector2( 8, 8 )
+6/occluder = SubResource( 10 )
+6/navigation_offset = Vector2( 8, 8 )
+6/shape_offset = Vector2( 0, 0 )
+6/shapes = [  ]
+7/name = "wall_1100"
+7/texture = ExtResource( 1 )
+7/tex_offset = Vector2( 0, 0 )
+7/region = Rect2( 0, 32, 16, 16 )
+7/occluder_offset = Vector2( 8, 8 )
+7/occluder = SubResource( 11 )
+7/navigation_offset = Vector2( 8, 8 )
+7/shape_offset = Vector2( 0, 0 )
+7/shapes = [  ]
+8/name = "wall_1101"
+8/texture = ExtResource( 1 )
+8/tex_offset = Vector2( 0, 0 )
+8/region = Rect2( 16, 32, 16, 16 )
+8/occluder_offset = Vector2( 8, 8 )
+8/occluder = SubResource( 12 )
+8/navigation_offset = Vector2( 8, 8 )
+8/shape_offset = Vector2( 0, 0 )
+8/shapes = [  ]
+9/name = "wall_1001"
+9/texture = ExtResource( 1 )
+9/tex_offset = Vector2( 0, 0 )
+9/region = Rect2( 32, 32, 16, 16 )
+9/occluder_offset = Vector2( 8, 8 )
+9/occluder = SubResource( 13 )
+9/navigation_offset = Vector2( 8, 8 )
+9/shape_offset = Vector2( 0, 0 )
+9/shapes = [  ]
+10/name = "wall_1000"
+10/texture = ExtResource( 1 )
+10/tex_offset = Vector2( 0, 0 )
+10/region = Rect2( 48, 32, 16, 16 )
+10/occluder_offset = Vector2( 8, 8 )
+10/occluder = SubResource( 14 )
+10/navigation_offset = Vector2( 8, 8 )
+10/shape_offset = Vector2( 0, 0 )
+10/shapes = [  ]
+11/name = "wall_0000"
+11/texture = ExtResource( 1 )
+11/tex_offset = Vector2( 0, 0 )
+11/region = Rect2( 64, 32, 16, 16 )
+11/occluder_offset = Vector2( 8, 8 )
+11/occluder = SubResource( 15 )
+11/navigation_offset = Vector2( 8, 8 )
+11/shape_offset = Vector2( 0, 0 )
+11/shapes = [  ]
+12/name = "wall_0100"
+12/texture = ExtResource( 1 )
+12/tex_offset = Vector2( 0, 0 )
+12/region = Rect2( 0, 48, 16, 16 )
+12/occluder_offset = Vector2( 8, 8 )
+12/occluder = SubResource( 16 )
+12/navigation_offset = Vector2( 8, 8 )
+12/shape_offset = Vector2( 0, 0 )
+12/shapes = [  ]
+13/name = "wall_0101"
+13/texture = ExtResource( 1 )
+13/tex_offset = Vector2( 0, 0 )
+13/region = Rect2( 16, 48, 16, 16 )
+13/occluder_offset = Vector2( 8, 8 )
+13/occluder = SubResource( 17 )
+13/navigation_offset = Vector2( 8, 8 )
+13/shape_offset = Vector2( 0, 0 )
+13/shapes = [  ]
+14/name = "wall_0001"
+14/texture = ExtResource( 1 )
+14/tex_offset = Vector2( 0, 0 )
+14/region = Rect2( 32, 48, 16, 16 )
+14/occluder_offset = Vector2( 8, 8 )
+14/occluder = SubResource( 18 )
+14/navigation_offset = Vector2( 8, 8 )
+14/shape_offset = Vector2( 0, 0 )
+14/shapes = [  ]
+15/name = "wall_1010"
+15/texture = ExtResource( 1 )
+15/tex_offset = Vector2( 0, 0 )
+15/region = Rect2( 48, 16, 16, 16 )
+15/occluder_offset = Vector2( 8, 8 )
+15/occluder = SubResource( 19 )
+15/navigation_offset = Vector2( 8, 8 )
+15/shape_offset = Vector2( 0, 0 )
+15/shapes = [  ]
+16/name = "door_open"
+16/texture = ExtResource( 1 )
+16/tex_offset = Vector2( 0, 0 )
+16/region = Rect2( 80, 0, 16, 16 )
+16/occluder_offset = Vector2( 8, 8 )
+16/navigation_offset = Vector2( 8, 8 )
+16/shape_offset = Vector2( 0, 0 )
+16/shapes = [  ]
+17/name = "door_closed"
+17/texture = ExtResource( 1 )
+17/tex_offset = Vector2( 0, 0 )
+17/region = Rect2( 80, 32, 16, 16 )
+17/occluder_offset = Vector2( 8, 8 )
+17/occluder = SubResource( 22 )
+17/navigation_offset = Vector2( 8, 8 )
+17/shape_offset = Vector2( 0, 0 )
+17/shapes = [  ]
+18/name = "door_closed1"
+18/texture = ExtResource( 1 )
+18/tex_offset = Vector2( 0, 0 )
+18/region = Rect2( 80, 16, 16, 16 )
+18/occluder_offset = Vector2( 8, 8 )
+18/navigation_offset = Vector2( 8, 8 )
+18/shape_offset = Vector2( 0, 0 )
+18/shapes = [  ]
+19/name = "water_shallow"
+19/texture = ExtResource( 1 )
+19/tex_offset = Vector2( 0, 0 )
+19/region = Rect2( 112, 0, 16, 16 )
+19/occluder_offset = Vector2( 8, 8 )
+19/navigation_offset = Vector2( 8, 8 )
+19/shape_offset = Vector2( 0, 0 )
+19/shapes = [  ]
+20/name = "water_deep"
+20/texture = ExtResource( 1 )
+20/tex_offset = Vector2( 0, 0 )
+20/region = Rect2( 112, 16, 16, 16 )
+20/occluder_offset = Vector2( 8, 8 )
+20/navigation_offset = Vector2( 8, 8 )
+20/shape_offset = Vector2( 0, 0 )
+20/shapes = [  ]
+21/name = "floor"
+21/texture = ExtResource( 1 )
+21/tex_offset = Vector2( 0, 0 )
+21/region = Rect2( 96, 0, 16, 16 )
+21/occluder_offset = Vector2( 8, 8 )
+21/navigation_offset = Vector2( 8, 8 )
+21/shape_offset = Vector2( 0, 0 )
+21/shapes = [  ]
+22/name = "stairs_up"
+22/texture = ExtResource( 1 )
+22/tex_offset = Vector2( 0, 0 )
+22/region = Rect2( 80, 48, 16, 16 )
+22/occluder_offset = Vector2( 8, 8 )
+22/navigation_offset = Vector2( 8, 8 )
+22/shape_offset = Vector2( 0, 0 )
+22/shapes = [  ]
+23/name = "stairs_down"
+23/texture = ExtResource( 1 )
+23/tex_offset = Vector2( 0, 0 )
+23/region = Rect2( 96, 48, 16, 16 )
+23/occluder_offset = Vector2( 8, 8 )
+23/navigation_offset = Vector2( 8, 8 )
+23/shape_offset = Vector2( 0, 0 )
+23/shapes = [  ]
+24/name = "wall_10D0"
+24/texture = ExtResource( 1 )
+24/tex_offset = Vector2( 0, 0 )
+24/region = Rect2( 64, 0, 16, 16 )
+24/occluder_offset = Vector2( 8, 8 )
+24/occluder = SubResource( 7 )
+24/navigation_offset = Vector2( 8, 8 )
+24/shape_offset = Vector2( 0, 0 )
+24/shapes = [  ]
+25/name = "wall_D010"
+25/texture = ExtResource( 1 )
+25/tex_offset = Vector2( 0, 0 )
+25/region = Rect2( 64, 16, 16, 16 )
+25/occluder_offset = Vector2( 8, 8 )
+25/occluder = SubResource( 7 )
+25/navigation_offset = Vector2( 8, 8 )
+25/shape_offset = Vector2( 0, 0 )
+25/shapes = [  ]
+26/name = "wall_0D01"
+26/texture = ExtResource( 1 )
+26/tex_offset = Vector2( 0, 0 )
+26/region = Rect2( 48, 48, 16, 16 )
+26/occluder_offset = Vector2( 8, 8 )
+26/occluder = SubResource( 8 )
+26/navigation_offset = Vector2( 8, 8 )
+26/shape_offset = Vector2( 0, 0 )
+26/shapes = [  ]
+27/name = "wall_010D"
+27/texture = ExtResource( 1 )
+27/tex_offset = Vector2( 0, 0 )
+27/region = Rect2( 64, 48, 16, 16 )
+27/occluder_offset = Vector2( 8, 8 )
+27/occluder = SubResource( 9 )
+27/navigation_offset = Vector2( 8, 8 )
+27/shape_offset = Vector2( 0, 0 )
+27/shapes = [  ]
+28/name = "hidden"
+28/texture = ExtResource( 1 )
+28/tex_offset = Vector2( 0, 0 )
+28/region = Rect2( 32, 64, 16, 16 )
+28/occluder_offset = Vector2( 8, 8 )
+28/navigation_offset = Vector2( 8, 8 )
+28/shape_offset = Vector2( 0, 0 )
+28/shapes = [  ]
+29/name = "explored"
+29/texture = ExtResource( 1 )
+29/tex_offset = Vector2( 0, 0 )
+29/region = Rect2( 16, 64, 16, 16 )
+29/occluder_offset = Vector2( 8, 8 )
+29/navigation_offset = Vector2( 8, 8 )
+29/shape_offset = Vector2( 0, 0 )
+29/shapes = [  ]
+30/name = "shadow_large"
+30/texture = ExtResource( 1 )
+30/tex_offset = Vector2( 0, 0 )
+30/region = Rect2( 112, 32, 16, 16 )
+30/occluder_offset = Vector2( 8, 8 )
+30/navigation_offset = Vector2( 8, 8 )
+30/shape_offset = Vector2( 0, 0 )
+30/shapes = [  ]
+31/name = "shadow_small"
+31/texture = ExtResource( 1 )
+31/tex_offset = Vector2( 0, 0 )
+31/region = Rect2( 112, 48, 16, 16 )
+31/occluder_offset = Vector2( 8, 8 )
+31/navigation_offset = Vector2( 8, 8 )
+31/shape_offset = Vector2( 0, 0 )
+31/shapes = [  ]
+32/name = "shadow_large_side"
+32/texture = ExtResource( 1 )
+32/tex_offset = Vector2( 0, 0 )
+32/region = Rect2( 80, 64, 16, 16 )
+32/occluder_offset = Vector2( 8, 8 )
+32/navigation_offset = Vector2( 8, 8 )
+32/shape_offset = Vector2( 0, 0 )
+32/shapes = [  ]
+33/name = "shadow_large_corner1"
+33/texture = ExtResource( 1 )
+33/tex_offset = Vector2( 0, 0 )
+33/region = Rect2( 64, 64, 16, 16 )
+33/occluder_offset = Vector2( 8, 8 )
+33/navigation_offset = Vector2( 8, 8 )
+33/shape_offset = Vector2( 0, 0 )
+33/shapes = [  ]
+34/name = "shadow_large_outer_corner2"
+34/texture = ExtResource( 1 )
+34/tex_offset = Vector2( 0, 0 )
+34/region = Rect2( 48, 64, 16, 16 )
+34/occluder_offset = Vector2( 8, 8 )
+34/navigation_offset = Vector2( 8, 8 )
+34/shape_offset = Vector2( 0, 0 )
+34/shapes = [  ]
+35/name = "shadow_small_left"
+35/texture = ExtResource( 1 )
+35/tex_offset = Vector2( 0, 0 )
+35/region = Rect2( 32, 64, 16, 16 )
+35/occluder_offset = Vector2( 8, 8 )
+35/navigation_offset = Vector2( 8, 8 )
+35/shape_offset = Vector2( 0, 0 )
+35/shapes = [  ]
+36/name = "wall_10D1"
+36/texture = ExtResource( 1 )
+36/tex_offset = Vector2( 0, 0 )
+36/region = Rect2( 16, 80, 16, 16 )
+36/occluder_offset = Vector2( 8, 8 )
+36/occluder = SubResource( 20 )
+36/navigation_offset = Vector2( 8, 8 )
+36/shape_offset = Vector2( 0, 0 )
+36/shapes = [  ]
+37/name = "wall_D011"
+37/texture = ExtResource( 1 )
+37/tex_offset = Vector2( 0, 0 )
+37/region = Rect2( 16, 96, 16, 16 )
+37/occluder_offset = Vector2( 8, 8 )
+37/occluder = SubResource( 21 )
+37/navigation_offset = Vector2( 8, 8 )
+37/shape_offset = Vector2( 0, 0 )
+37/shapes = [  ]
+

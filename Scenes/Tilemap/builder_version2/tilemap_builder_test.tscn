@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Scenes/Tilemap/builder_version2/test_map.tscn" type="PackedScene" id=1]
+
+[node name="tilemap_builder_test" type="Node2D"]
+
+[node name="tilemap" parent="." instance=ExtResource( 1 )]
+
+

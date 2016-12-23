@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://Sprites/new_tileset.png" type="Texture" id=1]
+
+[node name="default_tileset" type="Node2D"]
+
+[node name="floor" type="Sprite" parent="."]
+
+transform/pos = Vector2( 16, 16 )
+texture = ExtResource( 1 )
+vframes = 3
+hframes = 3
+
+[node name="wall" type="Sprite" parent="."]
+
+transform/pos = Vector2( 48, 16 )
+texture = ExtResource( 1 )
+vframes = 3
+hframes = 3
+frame = 2
+
+[node name="corridor" type="Sprite" parent="."]
+
+transform/pos = Vector2( 16, 48 )
+texture = ExtResource( 1 )
+vframes = 3
+hframes = 3
+frame = 1
+
+[node name="stairs_up" type="Sprite" parent="."]
+
+transform/pos = Vector2( 80, 16 )
+texture = ExtResource( 1 )
+vframes = 3
+hframes = 3
+frame = 5
+
+

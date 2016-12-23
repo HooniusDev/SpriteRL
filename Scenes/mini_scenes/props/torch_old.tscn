@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://Sprites/tilemap_00.png" type="Texture" id=1]
+
+[sub_resource type="ColorRamp" id=1]
+
+offsets = FloatArray( 0, 0.222222, 0.461988, 0.643275, 0.736842, 0.918129 )
+colors = ColorArray( 1, 0.777832, 0.726563, 1, 1, 0, 0, 1, 0.765625, 0.311035, 0.598705, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1 )
+
+[node name="torch" type="Sprite"]
+
+texture = ExtResource( 1 )
+vframes = 8
+hframes = 8
+frame = 32
+__meta__ = { "_edit_group_":true }
+
+[node name="particles" type="Particles2D" parent="."]
+
+transform/pos = Vector2( 0.5, 0 )
+transform/scale = Vector2( 2, 2 )
+z/z = 1
+config/amount = 12
+config/lifetime = 0.5
+config/time_scale = 0.2
+config/preprocess = 0.1
+params/direction = 180.0
+params/spread = 20.0
+params/linear_velocity = 5.0
+params/spin_velocity = 0.0
+params/orbit_velocity = 0.0
+params/gravity_direction = 180.0
+params/gravity_strength = 5.0
+params/radial_accel = 0.0
+params/tangential_accel = 0.0
+params/damping = 0.0
+params/initial_angle = 0.0
+params/initial_size = 1.0
+params/final_size = 1.0
+params/hue_variation = 0.22
+params/anim_speed_scale = 1.0
+params/anim_initial_pos = 0.0
+randomness/spread = 0.02
+color/color_ramp = SubResource( 1 )
+
+
