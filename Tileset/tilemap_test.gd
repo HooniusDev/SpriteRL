@@ -1,17 +1,25 @@
 extends TileMap
 
-var FLOOR = "floor"
-var WATER_SHALLOW = "water_shallow"
-var WATER_DEEP = "water_deep"
-var HIDDEN = -1
-var EXPLORED = 29
-var STAIRS_DOWN = "stairs_down"
-var STAIRS_UP  = "stairs_up"
-var DOOR_OPEN = "door_open"
-var DOOR_CLOSED = " door_closed"
+#TILEMAP ID_S
+const FLOOR = "floor"
+const WATER_SHALLOW = "water_shallow"
+const WATER_DEEP = "water_deep"
+const HIDDEN = -1
+const EXPLORED = 29
+const STAIRS_DOWN = "stairs_down"
+const STAIRS_UP  = "stairs_up"
+const DOOR_OPEN = "door_open"
+const DOOR_CLOSED = " door_closed"
+const SHADOW = 30
+const SHADOW_SMALL = 31
+const SHADOW_LEFT = 32
+const SHADOW_CORNER = 33
+const SHADOW_OUTER_CORNER = 34
+const SHADOW_SMALL_LEFT = 35
 
 var TILE_DATA = {}
 var DECAL_DATA = {}
+
 var passable_tiles = []
 var transparent_tiles = []
 
@@ -19,17 +27,22 @@ var stairs_up
 
 var explored_layer
 var decals_layer
-
-var SHADOW = 30
-var SHADOW_SMALL = 31
-var SHADOW_LEFT = 32
-var SHADOW_CORNER = 33
-var SHADOW_OUTER_CORNER = 34
-var SHADOW_SMALL_LEFT = 35
+var creatures
+var animating_objects
 
 var max_x = 0
 var max_y = 0
 
+func get_animating_objects():
+	return animating_objects.get_children()
+
+func move_creature(creature, from, to ):
+	
+	pass
+
+func is_passable(cell):
+	if passable_tiles.has(cell):
+		return true
 
 func show_cell( cell ):
 	if ( TILE_DATA.has(cell)):
@@ -53,27 +66,26 @@ func hide_cell( cell ):
 	pass
 
 func _ready():
-	explored_layer = get_node("explored")
-	decals_layer = get_node("decals")
 	
-	var tile_array = get_used_cells()
+	explored_layer = get_node("explored") # get layers
+	decals_layer = get_node("decals")
+	creatures = get_node("creatures")
+	animating_objects = get_node("animating_objects")
+	
+	var tile_array = get_used_cells() 
 	var tileset = get_tileset()
-	for cell in tile_array:
+	for cell in tile_array: #set map max x and y
 		if cell.x > max_x:
 			max_x = cell.x
 		if cell.y > max_y:
 			max_y = cell.y
 		var tiletype =  get_cellv( cell )
 		var tilename = tileset.tile_get_name( tiletype )
-
-		set_tile( cell, tilename )
-		
+		set_tile( cell, tilename ) # get tiledata from tilemap and copy it to TILE_DATA before hiding the map
 	_add_decals()
-
 	var parent = get_parent()
 	if (parent!= null):
 		parent.tilemap = self
-	
 	pass
 	
 func set_tile( cell, tilename ):
@@ -154,5 +166,4 @@ func _add_decals():
 				DECAL_DATA[ cell ] = SHADOW_SMALL
 			if tileset.tile_get_name( TILE_DATA[ east ] ) == STAIRS_UP :
 				DECAL_DATA[ cell ] = SHADOW_SMALL_LEFT
-
 	pass

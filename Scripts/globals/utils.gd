@@ -1,7 +1,7 @@
-
+#utils.gd
 extends Node
 
-func line(p0,p1):
+func get_line(p0,p1):
 	var points = []
 	var N = diagonal_distance(p0,p1)
 	for step in range(0, N + 1, 1):

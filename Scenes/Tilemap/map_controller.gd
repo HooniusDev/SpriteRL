@@ -17,7 +17,15 @@ func tilemap_set(newvalue):
 	spawn_player( tilemap.stairs_up )
 	update_fov( tilemap.world_to_map( player.get_pos() ), 15 )
 
-
+func try_move_action(action):
+	if tilemap.is_passable( action.target_cell ):
+		on_player_move( action.owner, action.target_cell )
+		#on_player_enter_cell( player )
+		return true
+	else:
+		return true
+	pass
+	
 
 func init():
 	fov = fov.new()
@@ -49,7 +57,7 @@ func is_transparent( cell ):
 func spawn_player(cell):
 	player = load("res://Scenes/mini_scenes/creatures/player.tscn").instance()
 	get_node("tilemap/creatures").add_child(player)
-	player.set_pos( tilemap.map_to_world(cell))
+	player.cell_pos = cell
 	camera._focus_on_pos(player.get_pos())
 
 func _ready():
@@ -104,7 +112,7 @@ func on_creature_move( creature ):
 	
 func on_player_enter_cell(player):
 	camera._focus_on_pos( player.get_pos()) 
-	var tiletype = tilemap.get_cellv( tilemap.world_to_map( player.get_pos() ) )
+	var tiletype = tilemap.get_cellv( player.cell_pos )
 	var tilename = tilemap.get_tileset().tile_get_name( tiletype )
 	
 	var objects = get_node("tilemap/objects").get_children()
@@ -121,9 +129,9 @@ func on_player_enter_cell(player):
 		print( tilename )
 
 func on_player_move( player, target ):
-	if is_passable( tilemap.world_to_map(target)):
-		player.set_pos( target )
-		update_fov( tilemap.world_to_map( player.get_pos() ), 15 )
+	if is_passable( target):
+		player.cell_pos = target 
+		update_fov( player.cell_pos, 15 )
 		on_player_enter_cell(player)
 	else:
 		print( "Blocked!" )
