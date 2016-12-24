@@ -19,11 +19,12 @@ func tilemap_set(newvalue):
 
 func try_move_action(action):
 	if tilemap.is_passable( action.target_cell ):
-		on_player_move( action.owner, action.target_cell )
-		#on_player_enter_cell( player )
+		on_creature_move( action.owner, action.target_cell )
+		print ( action.owner.get_name() + " Moves!" )
 		return true
 	else:
-		return true
+		print(  action.owner.get_name() + " Bumbs into a hard place.." )
+		return false
 	pass
 	
 
@@ -42,7 +43,7 @@ func is_passable( cell ):
 	if tilemap.passable_tiles.has( cell ):
 		var creatures = get_node("tilemap/creatures").get_children()
 		for c in creatures:
-			if cell == tilemap.world_to_map( c.get_pos()):
+			if cell == c.cell_pos:
 				return false
 		return true
 	else:
@@ -103,8 +104,13 @@ func update_fov( pos, radius ):
 		if fov.visible_tiles.has( tilemap.world_to_map( object.get_pos() ) ):
 			object.show()
 
-func on_creature_move( creature ):
-	if fov.visible_tiles.has( tilemap.world_to_map( creature.get_pos() ) ):
+func on_creature_move( creature, target ):
+	creature.cell_pos = target
+	if ( creature == player ):
+		update_fov( player.cell_pos, 15 )
+		on_player_enter_cell(player)
+		return
+	if fov.visible_tiles.has( creature.cell_pos ):
 		creature.show()
 	else:
 		creature.hide()
@@ -128,12 +134,4 @@ func on_player_enter_cell(player):
 	if ( tilename != tilemap.FLOOR ):
 		print( tilename )
 
-func on_player_move( player, target ):
-	if is_passable( target):
-		player.cell_pos = target 
-		update_fov( player.cell_pos, 15 )
-		on_player_enter_cell(player)
-	else:
-		print( "Blocked!" )
-	pass
 

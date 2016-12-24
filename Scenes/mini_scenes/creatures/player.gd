@@ -7,7 +7,6 @@ var wait_action = preload("res://Scripts/Actions/wait_action.gd")
 var shoot_action = preload("res://Scripts/Actions/shoot_action.gd")
 var target_action = preload("res://Scripts/Actions/target_action.gd")
 
-
 var _next_action
 
 var cell_pos setget cell_pos_set
@@ -15,24 +14,20 @@ func cell_pos_set( value ):
 	cell_pos = value
 	set_pos( value * TILESIZE )
 	
-func _on_turn_end():
-	
-	pass
-	
-func _on_turn_start():
-	
-	pass
 
 func get_action():
 	if _next_action != null:
 		var action = _next_action
 		_next_action = null
 		print ( "palyer acts")
+		set_process_input( false )
 		return action
+	else:
+		set_process_input( true )
 
 func _ready():
 	cell_pos = Vector2(0,0)
-	set_process_input(true)
+	#set_process_input(true)
 	pass
 
 func _input(event):

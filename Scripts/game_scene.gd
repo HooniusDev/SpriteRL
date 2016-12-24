@@ -31,9 +31,8 @@ func next_mob( ):
 	if _current_mob == -1:
 		_current_mob = 0
 	else:
-		mobs[_current_mob]._on_turn_end()
 		_current_mob = (_current_mob + 1) % mobs.size();
-	mobs[_current_mob]._on_turn_start()
+
 
 func _ready():
 	_current_mob = 0

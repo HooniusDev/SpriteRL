@@ -35,6 +35,11 @@ func get_south( pos ):
 	return pos + _south()
 func get_west( pos ):
 	return pos + _west()
+	
+func get_random():
+	randomize()
+	var dirs = [ Dir.N, Dir.E, Dir.W, Dir.S ]
+	return dirs[ int( rand_range(0,3) )]
 
 
 	

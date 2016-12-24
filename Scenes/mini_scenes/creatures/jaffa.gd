@@ -9,7 +9,7 @@ func cell_pos_set( value ):
 	set_pos( value * TILESIZE )
 
 func get_action():
-		return move_action.new( self, directions.W )
+		return move_action.new( self, directions.get_random() )
 
 func _on_turn_end():
 	
@@ -20,7 +20,7 @@ func _on_turn_start():
 	pass
 
 func _ready():
-	cell_pos = Vector2(0,0)
+	cell_pos = get_pos() / TILESIZE
 	# Called every time the node is added to the scene.
 	# Initialization here
 	pass

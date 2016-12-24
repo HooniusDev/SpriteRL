@@ -10,6 +10,10 @@ script/script = ExtResource( 1 )
 
 [node name="map_controller" parent="." instance=ExtResource( 2 )]
 
+[node name="jaffa" parent="map_controller/tilemap/creatures"]
+
+transform/pos = Vector2( 64, 96 )
+
 [node name="camera" type="Camera2D" parent="map_controller"]
 
 anchor_mode = 1
