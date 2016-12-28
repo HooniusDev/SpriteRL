@@ -9,13 +9,15 @@ const EXPLORED = 29
 const STAIRS_DOWN = "stairs_down"
 const STAIRS_UP  = "stairs_up"
 const DOOR_OPEN = "door_open"
-const DOOR_CLOSED = " door_closed"
+const DOOR_CLOSED = "door_closed"
 const SHADOW = 30
 const SHADOW_SMALL = 31
 const SHADOW_LEFT = 32
 const SHADOW_CORNER = 33
 const SHADOW_OUTER_CORNER = 34
 const SHADOW_SMALL_LEFT = 35
+
+var door_prefab = preload("res://Scenes/mini_scenes/features/door.tscn")
 
 var TILE_DATA = {}
 var DECAL_DATA = {}
@@ -26,6 +28,7 @@ var transparent_tiles = []
 var stairs_up
 
 var explored_layer
+var features
 var decals_layer
 var creatures
 var animating_objects
@@ -39,10 +42,27 @@ func get_animating_objects():
 func move_creature(creature, from, to ):
 	
 	pass
+	
+func set_passable(world_pos, passable):
+	var cell_pos = world_to_map( world_pos )
+	if passable:
+		if !passable_tiles.has(cell_pos):
+			passable_tiles.append(cell_pos)
+	else:
+		if passable_tiles.has(cell_pos):
+			passable_tiles.remove(cell_pos)
 
 func is_passable(cell):
 	if passable_tiles.has(cell):
+		for c in creatures.get_children():
+			if c.cell_pos == cell and c.has_method("blocks_cell"):
+					return c.blocks_cell()
+		for f in features.get_children():
+			if f.cell_pos == cell and f.has_method("blocks_cell"):
+					return f.blocks_cell()
 		return true
+	else:
+		return false
 
 func show_cell( cell ):
 	if ( TILE_DATA.has(cell)):
@@ -54,6 +74,9 @@ func show_cell( cell ):
 		for object in objects:
 			if cell == world_to_map( object.get_pos() ):
 				object.show()
+		for feature in get_node("features").get_children():
+			if  cell == world_to_map( feature.get_pos() ):
+				feature.show()
 	pass
 	
 func hide_cell( cell ):
@@ -68,6 +91,7 @@ func hide_cell( cell ):
 func _ready():
 	
 	explored_layer = get_node("explored") # get layers
+	features = get_node("features")
 	decals_layer = get_node("decals")
 	creatures = get_node("creatures")
 	animating_objects = get_node("animating_objects")
@@ -108,7 +132,7 @@ func set_tile( cell, tilename ):
 		TILE_DATA[cell] = get_cellv( cell )
 		set_cellv( cell, HIDDEN )
 		return
-	if tilename == STAIRS_DOWN or tilename == STAIRS_UP or tilename == DOOR_OPEN:
+	if tilename == STAIRS_DOWN or tilename == STAIRS_UP:
 		passable_tiles.append( cell )
 		transparent_tiles.append( cell )  
 		TILE_DATA[cell] = get_cellv( cell )
@@ -116,8 +140,15 @@ func set_tile( cell, tilename ):
 		if tilename == STAIRS_UP:
 			stairs_up = cell
 		return
-	if tilename == DOOR_CLOSED: 
-		TILE_DATA[cell] = get_cellv( cell )
+	if tilename == DOOR_CLOSED or tilename == DOOR_OPEN:
+		var door = door_prefab.instance()
+		features.add_child(door)
+		door.close()
+		door.cell_pos = cell
+		#door.set_pos( Vector2( cell.x * 16, cell.y * 16) )
+		#passable_tiles.append(cell)
+		#transparent_tiles.append(cell)
+		TILE_DATA[cell] = 21
 		set_cellv( cell, HIDDEN )
 		return
 
@@ -126,6 +157,17 @@ func set_tile( cell, tilename ):
 	set_cellv( cell, HIDDEN )
 		
 	pass
+	
+func open_door(cell):
+	var door
+	for feature in features.get_children():
+		if world_to_map(feature.get_pos()) == cell:
+			if feature.has_method( "operate" ):
+				if feature.operate():
+					passable_tiles.append(cell)
+					transparent_tiles.append(cell)
+					return true
+					
 	
 func is_transparent(cell):
 	if TILE_DATA.has( cell ) and passable_tiles.has( cell ):

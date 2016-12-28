@@ -475,15 +475,6 @@ __meta__ = { "_edit_group_":true }
 occluder = SubResource( 22 )
 light_mask = 1
 
-[node name="door_closed1" type="Sprite" parent="."]
-
-transform/pos = Vector2( 120, 56 )
-texture = ExtResource( 1 )
-vframes = 8
-hframes = 8
-frame = 13
-__meta__ = { "_edit_group_":true }
-
 [node name="water_shallow" type="Sprite" parent="."]
 
 transform/pos = Vector2( 88, 72 )

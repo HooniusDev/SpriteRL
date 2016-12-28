@@ -18,25 +18,38 @@ func tilemap_set(newvalue):
 	update_fov( tilemap.world_to_map( player.get_pos() ), 15 )
 
 func try_move_action(action):
-	if tilemap.is_passable( action.target_cell ):
+	var passable = tilemap.is_passable( action.target_cell )
+	if typeof(passable) == TYPE_BOOL and passable == true:
 		on_creature_move( action.owner, action.target_cell )
 		print ( action.owner.get_name() + " Moves!" )
+		action.perform()
 		return true
-	else:
-		print(  action.owner.get_name() + " Bumbs into a hard place.." )
+	elif typeof(passable) != TYPE_BOOL:
+		if passable.is_in_group("hostile"):
+			print( str( action.owner ) + " should be attacking" )
+		if passable.is_in_group("operable"):
+			print( str( action.owner ) + " should be operating the device" )
+		# return Attack action on hostile creatrue
+		# return OpenDoor action on door 
+		#print("try open the door")
+		if tilemap.open_door( action.target_cell ):
+			update_fov( action.owner.cell_pos, 15 )
+		#print(  action.owner.get_name() + " Bumbs into a hard place.." )
+		action.cancel()
 		return false
 	pass
 	
 
 func init():
 	fov = fov.new()
-	camera = get_node("camera")
-	camera.world_right_boundary = tilemap.max_x * 16
-	camera.world_bottom_boundary = tilemap.max_y * 16
+	#var camera = player.get_node("player_camera")
+	#camera.set_limit( 
+	#camera.world_right_boundary = tilemap.max_x * 16
+	#camera.world_bottom_boundary = tilemap.max_y * 16
 	pass
 
 onready var mouse_label = get_node("../gui/mouse_pos_label")
-var camera
+#var camera
 var prev_mouse_cell
 
 func is_passable( cell ):
@@ -59,7 +72,8 @@ func spawn_player(cell):
 	player = load("res://Scenes/mini_scenes/creatures/player.tscn").instance()
 	get_node("tilemap/creatures").add_child(player)
 	player.cell_pos = cell
-	camera._focus_on_pos(player.get_pos())
+	var camera = player.get_node("player_camera")
+	#camera._focus_on_pos(player.get_pos())
 
 func _ready():
 	set_process_input( true )
@@ -117,7 +131,7 @@ func on_creature_move( creature, target ):
 	pass
 	
 func on_player_enter_cell(player):
-	camera._focus_on_pos( player.get_pos()) 
+	#camera._focus_on_pos( player.get_pos()) 
 	var tiletype = tilemap.get_cellv( player.cell_pos )
 	var tilename = tilemap.get_tileset().tile_get_name( tiletype )
 	

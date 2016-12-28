@@ -2,12 +2,10 @@ extends Sprite
 
 const TILESIZE = 16
 
-var move_action = preload("res://Scripts/Actions/move_action.gd")
-var wait_action = preload("res://Scripts/Actions/wait_action.gd")
-var shoot_action = preload("res://Scripts/Actions/shoot_action.gd")
-var target_action = preload("res://Scripts/Actions/target_action.gd")
-
 var _next_action
+
+var energy = 0
+var energy_regen = 1
 
 var cell_pos setget cell_pos_set
 func cell_pos_set( value ):
@@ -19,7 +17,6 @@ func get_action():
 	if _next_action != null:
 		var action = _next_action
 		_next_action = null
-		print ( "palyer acts")
 		set_process_input( false )
 		return action
 	else:
@@ -29,20 +26,19 @@ func _ready():
 	cell_pos = Vector2(0,0)
 	#set_process_input(true)
 	pass
+	
+func blocks_cell():
+	return self
 
 func _input(event):
 	#if is_player:
 	#if event.is_action_released("end_turn"):
 	#	_next_action = wait_action.new( self )
 	if event.is_action_pressed("move_w"):
-		#get_parent().get_parent().get_parent().on_player_move( self, get_pos() + directions.W * 16  )
-		_next_action = move_action.new( self, directions.W )
+		_next_action = action_factory.new_move( self, directions.W )
 	if event.is_action_pressed("move_n"):
-		#get_parent().get_parent().get_parent().on_player_move( self, get_pos() + directions.N * 16 )
-		_next_action = move_action.new( self, directions.N )
+		_next_action = action_factory.new_move( self, directions.N )
 	if event.is_action_pressed("move_e"):
-		#get_parent().get_parent().get_parent().on_player_move( self,get_pos() + directions.E * 16 )
-		_next_action = move_action.new( self, directions.E )
+		_next_action = action_factory.new_move( self, directions.E )
 	if event.is_action_pressed("move_s"):
-		#get_parent().get_parent().get_parent().on_player_move( self, get_pos() + directions.S * 16 )
-		_next_action = move_action.new( self, directions.S )
+		_next_action = action_factory.new_move( self, directions.S )
