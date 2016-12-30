@@ -1,6 +1,23 @@
 #utils.gd
 extends Node
 
+var map_manager
+
+func check_los( p0, radius):
+	var line = get_line( p0, map_manager.player.cell_pos)
+	var distance = 0
+	for cell in line:
+		if distance > radius:
+			return false
+		if !map_manager.is_transparent(cell):
+			return false
+		distance += 1
+	return line[1]
+	
+func get_move_dir( p0, p1 ):
+	var line = get_line( p0, p1)
+	return line[1]
+
 func get_line(p0,p1):
 	var points = []
 	var N = diagonal_distance(p0,p1)

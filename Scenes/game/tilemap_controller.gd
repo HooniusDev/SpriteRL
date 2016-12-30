@@ -69,6 +69,13 @@ func is_transparent(cell):
 func is_passable(cell):
 	return _passable_cells.has(cell)
 	
+func get_blocker(cell):
+	if !is_passable(cell):
+		if _actors.has(cell):
+			return _actors[cell]
+		return null
+	return cell
+
 func set_actor_pos(actor, new_pos):
 	if !is_passable( new_pos ):
 		return false
@@ -80,6 +87,10 @@ func set_actor_pos(actor, new_pos):
 	actor.cell_pos = new_pos
 	return true
 
+func remove_actor(actor):
+	_passable_cells.append(actor.cell_pos)
+	_actors.erase(actor.cell_pos)
+	
 func show_cell(cell):
 	if ( _tile_data.has(cell)):
 		explored_layer.set_cellv( cell, -1 ) # Hide fog

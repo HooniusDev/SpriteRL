@@ -56,10 +56,12 @@ func is_passable(cell):
 	if passable_tiles.has(cell):
 		for c in creatures.get_children():
 			if c.cell_pos == cell and c.has_method("blocks_cell"):
-					return c.blocks_cell()
+				if c.blocks_cell():
+					return c
 		for f in features.get_children():
 			if f.cell_pos == cell and f.has_method("blocks_cell"):
-					return f.blocks_cell()
+				if f.blocks_cell():
+					return f
 		return true
 	else:
 		return false

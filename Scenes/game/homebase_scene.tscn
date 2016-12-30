@@ -60,11 +60,11 @@ tile_data = IntArray(  )
 
 transform/pos = Vector2( 80, 176 )
 
-[node name="enemy" parent="map_manager/tilemap/actors" instance=ExtResource( 6 )]
+[node name="enemy1" parent="map_manager/tilemap/actors" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 160, 176 )
 
-[node name="enemy1" parent="map_manager/tilemap/actors" instance=ExtResource( 6 )]
+[node name="enemy2" parent="map_manager/tilemap/actors" instance=ExtResource( 6 )]
 
 transform/pos = Vector2( 272, 208 )
 
@@ -92,5 +92,42 @@ layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
+
+[node name="game_over" type="Label" parent="gui"]
+
+visibility/visible = false
+anchor/right = 1
+anchor/bottom = 1
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 269.0
+margin/bottom = 274.0
+text = "GAME OVER MAN!"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Label" type="Label" parent="gui/game_over"]
+
+rect/scale = Vector2( 0.5, 0.5 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 13.0
+margin/right = 166.0
+margin/bottom = 27.0
+text = "press any key to try again."
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
 
 

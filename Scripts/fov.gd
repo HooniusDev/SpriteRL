@@ -18,6 +18,8 @@ func calculate2( map, pos, radius ):
 							if los_blocked == false and !visible_tiles.has(cell):
 								visible_tiles.append(cell)
 
+	
+
 func calculate( map, pos, radius ):
 	
 	visible_tiles.clear()

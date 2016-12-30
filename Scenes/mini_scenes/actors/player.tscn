@@ -15,6 +15,16 @@ vframes = 4
 hframes = 5
 frame = 14
 
+[node name="move_marker" type="Sprite" parent="."]
+
+visibility/visible = false
+z/z = 2
+texture = ExtResource( 2 )
+centered = false
+vframes = 4
+hframes = 5
+frame = 3
+
 [node name="camera" type="Camera2D" parent="."]
 
 anchor_mode = 1
