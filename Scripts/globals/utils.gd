@@ -3,6 +3,12 @@ extends Node
 
 var map_manager
 
+static func resolve_shot( attacker, target ):
+	print("resolving shot....")
+	print("You hit the: " + target.get_name() + "for " + str(attacker.inventory._weapon._damage)) 
+	target.take_damage( attacker.inventory._weapon._damage )
+	return #damage
+
 func check_los( p0, radius):
 	var line = get_line( p0, map_manager.player.cell_pos)
 	var distance = 0
@@ -40,8 +46,6 @@ func round_point(p):
 	
 func lerp_point(p0,p1,t):
 	return Vector2(lerp(p0.x, p1.x, t), lerp(p0.y, p1.y, t))
-
-
 
 func add_shadows(tile_data, transparent_cells):
 	

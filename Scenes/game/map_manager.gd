@@ -44,7 +44,10 @@ func is_passable(cell):
 	return _tilemap.is_passable(cell)
 
 func get_blocker(cell):
-	return _tilemap.get_blocker(cell)
+	if fov.visible_tiles.has(cell):
+		return _tilemap.get_blocker(cell)
+	else:
+		 return null
 
 func is_transparent(cell):
 	return _tilemap.is_transparent(cell)
@@ -56,6 +59,7 @@ func set_cell_visibility(cell, visible = true):
 		_tilemap.hide_cell(cell)
 
 func _ready():
+	globals.map_manager = self
 	utils.map_manager = self
 	
 	pass

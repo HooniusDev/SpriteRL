@@ -41,7 +41,15 @@ func get_random():
 	var dirs = [ Dir.N, Dir.E, Dir.W, Dir.S ]
 	return dirs[ int( rand_range(0,3) )]
 
-
+const DirArray = [
+	Vector2( 0, -1 ),
+	Vector2( 1, -1 ),
+	Vector2( 1, 0 ),
+	Vector2( 1, 1 ),
+	Vector2( 0, 1 ),
+	Vector2( -1, 1 ),
+	Vector2( -1, 0 ),
+	Vector2( -1, -1 )]
 	
 const Direction = {
 	N = Vector2( 0, -1 ),

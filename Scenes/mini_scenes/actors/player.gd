@@ -1,5 +1,30 @@
 extends Node2D
 
+const CURSOR_N = preload("res://Sprites/Atlas/mouse_n.atex")
+const CURSOR_NE = preload("res://Sprites/Atlas/mouse_ne.atex")
+const CURSOR_E = preload("res://Sprites/Atlas/mouse_e.atex")
+const CURSOR_SE = preload("res://Sprites/Atlas/mouse_se.atex")
+const CURSOR_S = preload("res://Sprites/Atlas/mouse_s.atex")
+const CURSOR_SW = preload("res://Sprites/Atlas/mouse_sw.atex")
+const CURSOR_W = preload("res://Sprites/Atlas/mouse_w.atex")
+const CURSOR_NW = preload("res://Sprites/Atlas/mouse_nw.atex")
+const CURSOR_SHOOT = preload("res://Sprites/Atlas/shoot.atex")
+
+const cursors = [CURSOR_N,CURSOR_NE,CURSOR_E,CURSOR_SE,CURSOR_S,CURSOR_SW,CURSOR_W,CURSOR_NW]
+
+
+func get_name():
+	return "Cpl. Donk"
+	
+func health_to_string():
+	return str(health) + "/" + str(health_max)
+
+var inventory_scene = preload("res://Scenes/mini_scenes/actors/inventory.tscn")
+var inventory
+var inventory_shown = false
+
+var targetting_mode = false
+
 var _next_action
 
 var energy = 1
@@ -10,6 +35,7 @@ var sight_radius = 10
 var move_marker
 
 var health = 5
+var health_max =5
 var melee_damage = 1
 var faction = "allied"
 
@@ -18,17 +44,46 @@ func cell_pos_set( value ):
 	cell_pos = value
 	set_pos( value * 16 )
 	
+func pickup_item( item ):
+	print( "You pickup: " + item.get_name())
+	globals.tilemap_controller.remove_item(item)
+	inventory.add_item(item)
+	
+func drop_item(item):
+	item = inventory._items[item]
+	print("you drop: " + item.get_name())
+	inventory.remove_item(item)
+	item.set_pos(get_pos())
+	globals.tilemap_controller.add_item(item)
+	
+	
 
-func damage(amount):
+func parent_item( item ):
+	inventory.add_item( item )
+
+func take_damage(amount):
 	health -= amount
 	if health <= 0:
 		die()
+
+func heal(amount):
+	if health < health_max:
+		health += amount
+		if health > health_max:
+			health = health_max
+		print("You feel much better")
+		return true
+	else:
+		return false
 		
 func die():
 	get_node("/root/homebase_scene")._on_remove_actor(self)
 	queue_free()
 
 func _ready():
+	globals.player = self
+	inventory = inventory_scene.instance()
+	add_child(inventory)
 	cell_pos = get_pos() / 16
 	get_node("/root/homebase_scene")._on_add_actor(self)
 	move_marker = get_node("move_marker")
@@ -46,44 +101,83 @@ func get_action():
 		set_process_input( false )
 		return action
 	else:
-		set_process_input( true )
-		#get_node("move_marker").show()
-		
-
-func _input(event):
-	var mouse_pos = utils.map_manager._tilemap.world_to_map(get_global_mouse_pos())
-	var action = "move"
-	if cell_pos != mouse_pos:
-		var target_cell = utils.get_move_dir( cell_pos, mouse_pos)
-		var target = utils.map_manager.get_blocker(target_cell)
-		#target is false when 
-		if typeof(target) == TYPE_VECTOR2: # retruned vector2 so it is passable
-			move_marker.set_frame(3)
-			move_marker.show()
-		if target == null: # returned null so its a wall etc.
-			move_marker.hide()
-		if typeof(target) == TYPE_OBJECT:
-			move_marker.set_frame(13)
-			move_marker.show()
-			action = "attack"
-				#move_marker.set_pos( target.cell_pos )
-
-		#make a move
-		target_cell = target_cell - cell_pos
-		if target_cell != Vector2(0,0):
-			move_marker.set_offset( Vector2( target_cell.x * 16, target_cell.y*16) )
-			if event.type == InputEvent.MOUSE_BUTTON:
-				if event.button_index == BUTTON_LEFT and event.pressed:
-					if action == "move":
-						_next_action = Vector2(target_cell)
-						move_marker.hide()
-						return
-					elif action == "attack":
-						_next_action = target
-						move_marker.hide()
-						return
+		set_process_unhandled_input(true)
+	
+func toggle_targetting_mode():
+	if targetting_mode == true:
+		targetting_mode = false
 	else:
-		move_marker.hide()
+		targetting_mode = true
+		
+func toggle_inventory():
+	if inventory_shown == false:
+		inventory_shown = true
+		globals.gui_controller.show_inventory()
+	else:
+		inventory_shown = false
+		globals.gui_controller.hide_inventory()
+
+func _unhandled_input(event):
+	if inventory_shown == false:
+		var mouse_pos = utils.map_manager._tilemap.world_to_map(get_global_mouse_pos())
+		var action = "move"
+		if cell_pos != mouse_pos:
+			if inventory.wields_ranged():
+				var blocker = globals.map_manager.get_blocker(mouse_pos)
+				#if typeof(blocker) == TYPE_OBJECT and blocker.has_method("get_name"):
+					#print(blocker.get_name())
+				if typeof(blocker) == TYPE_OBJECT and blocker.is_in_group("hostile_faction"):
+					move_marker.set_texture(CURSOR_SHOOT)
+					move_marker.show()
+					move_marker.set_offset( Vector2( (mouse_pos.x-cell_pos.x) * 16, (mouse_pos.y-cell_pos.y)*16) )
+					if event.type == InputEvent.MOUSE_BUTTON:
+						if event.button_index == BUTTON_LEFT and event.pressed:
+							if inventory._weapon.shoot():
+								utils.resolve_shot( self, blocker )
+							return
+					else:
+						return
+			var target_cell = utils.get_move_dir( cell_pos, mouse_pos)
+			var target = utils.map_manager.get_blocker(target_cell)
+			#target is false when 
+			if typeof(target) == TYPE_VECTOR2: # retruned vector2 so it is passable
+				#move_marker.set_frame(3)
+				var dir = target - cell_pos
+				var dirs = directions.DirArray
+				print(dir)
+				for i in range(dirs.size()):
+					if dir == dirs[i]:
+						move_marker.set_texture( cursors[i] )
+				move_marker.show()
+			if target == null: # returned null so its a wall etc.
+				move_marker.hide()
+			if typeof(target) == TYPE_OBJECT:
+				#move_marker.set_frame(13)
+				move_marker.show()
+				action = "attack"
+					#move_marker.set_pos( target.cell_pos )
+	
+			#make a move
+			target_cell = target_cell - cell_pos
+			if target_cell != Vector2(0,0):
+				move_marker.set_offset( Vector2( target_cell.x * 16, target_cell.y*16) )
+				if event.type == InputEvent.MOUSE_BUTTON:
+					if event.button_index == BUTTON_LEFT and event.pressed:
+						if action == "move":
+							_next_action = Vector2(target_cell)
+							move_marker.hide()
+							return
+						elif action == "attack":
+							_next_action = target
+							move_marker.hide()
+							return
+		else:
+			move_marker.hide()
+		
+	if event.is_action_pressed("toggle_targetting"):
+		toggle_targetting_mode()
+	if event.is_action_pressed("toggle_inventory"):
+		toggle_inventory()
 	
 	if event.is_action_pressed("move_w"):
 		#set_pos( get_pos() + directions.W * 16 )

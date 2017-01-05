@@ -1,5 +1,7 @@
 extends Node2D
 
+var game_state
+
 var mobs = []
 var _current_mob = -1
 
@@ -7,8 +9,6 @@ var turn_counter = 0
 var tick = 0
 
 func _process(delta):
-	
-	
 	if get_node("map_controller/tilemap").get_animating_objects().size() > 0:
 		for obj in get_node("map_controller/tilemap").animating_objects:
 			obj.perform()

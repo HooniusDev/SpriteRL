@@ -1,5 +1,7 @@
 extends TileMap
 
+var item_stack = preload("res://Scenes/mini_scenes/misc/item_stack.tscn")
+
 #TILEMAP ID_S
 const FLOOR = "floor"
 const WATER_SHALLOW = "water_shallow"
@@ -20,7 +22,7 @@ var stairs_up
 var _passable_cells = []
 var _transparent_cells = []
 
-var _objects = {} #key: cell_pos, value object array
+var _items = {} #key: cell_pos, value object array
 var _actors = {} #key: cell_pos, value actor
 
 var shadows_layer
@@ -29,6 +31,7 @@ var explored_layer
 var player
 
 func _ready():
+	globals.tilemap_controller = self
 	shadows_layer = get_node("shadows_layer")
 	explored_layer = get_node("explored_layer")
 	
@@ -62,6 +65,37 @@ func _ready():
 			
 	set_actor_pos( player, stairs_up )
 	get_parent().update_fov( player.cell_pos, player.sight_radius )
+	
+	for item in get_node("items").get_children():
+		add_item( item )
+	print( _items )
+
+func add_item( item ):
+	var pos = world_to_map( item.get_pos())
+	var stack
+	if !_items.has(pos):
+		stack = item_stack.instance()
+		stack.set_name(str(pos))
+		get_node("items").add_child(stack)
+		stack.add_item(item)
+		_items[pos] = stack
+	else:
+		stack = _items[pos]
+		stack.add_item(item)
+	stack.set_global_pos( map_to_world(pos))
+		
+func remove_item( item ):
+	var cell = world_to_map( item.get_parent().get_parent().get_pos())
+	if _items.has(cell):
+		item.hide()
+		var stack = _items[cell]
+		stack.remove_item(item)
+		if stack.get_count() == 0:
+			_items.erase(cell)
+		else:
+			globals.gui_controller._show_cell_item_pickup_buttons(_items[cell].get_items())
+	else:
+		print("item not found to remove!")
 
 func is_transparent(cell):
 	return _transparent_cells.has(cell)
@@ -85,6 +119,12 @@ func set_actor_pos(actor, new_pos):
 	_actors[new_pos] = actor
 	_passable_cells.erase(new_pos)
 	actor.cell_pos = new_pos
+	if actor == globals.player:
+		if ( _items.has( new_pos )):
+			print ( "after move items in cell:" + str(_items[new_pos].get_items()))
+			globals.gui_controller._show_cell_item_pickup_buttons(_items[new_pos].get_items())
+		else:
+			get_node("/root/homebase_scene/gui")._show_cell_item_pickup_buttons(null)
 	return true
 
 func remove_actor(actor):
@@ -97,10 +137,8 @@ func show_cell(cell):
 		set_cellv( cell, _tile_data[cell] ) # Show original tile
 		if _shadow_data.has(cell):
 			shadows_layer.set_cellv( cell, _shadow_data[cell]) # show decals
-		if _objects.has(cell):
-			for object in _objects[cell]:
-				if object.has_method("show"):
-					object.show()
+		if _items.has(cell):
+			_items[cell].show()
 		if _actors.has(cell):
 			if _actors[cell].has_method("show"):
 				_actors[cell].show()
@@ -109,10 +147,8 @@ func show_cell(cell):
 func hide_cell(cell):
 	if _tile_data.has(cell):
 		explored_layer.set_cellv( cell, EXPLORED )
-		if _objects.has(cell):
-			for object in _objects[cell]:
-				if object.has_method("hide"):
-					object.hide()
+		if _items.has(cell):
+			_items[cell].hide()
 	pass
 	
 func set_tile( cell, tilename ):

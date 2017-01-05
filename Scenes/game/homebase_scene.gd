@@ -31,11 +31,15 @@ func _process(delta):
 		return
 	
 	if all_actors.size() > 0:
-		_cur_actor = all_actors[_cur_actor_index]
+		if _cur_actor_index < all_actors.size():
+			_cur_actor = all_actors[_cur_actor_index]
 	else:
 		print( "NO ACTORS IN SCENE" )
+
 	while !_cur_actor.can_act():
 		next_actor()
+		if _cur_actor == null:
+			next_actor()
 	
 	var action = _cur_actor.get_action()
 	if action == null:
@@ -53,6 +57,8 @@ func _process(delta):
 
 func next_actor( ):
 	_cur_actor_index = (_cur_actor_index + 1) % all_actors.size();
+	#if !all_actors.has(_cur_actor_index):
+	#	next_actor()
 	_cur_actor = all_actors[_cur_actor_index]
 	if _cur_actor_index == 0:
 		#print("tick: " + str(tick))
@@ -92,7 +98,10 @@ func _on_remove_actor( actor):
 	all_actors.erase( actor )
 
 func _ready():
+	globals.homebase_scene = self
 	set_process( true )
+	
+	globals.game_state._process()
 	#if first_start:
 	#	get_node("map_manager").spawn
 	pass
