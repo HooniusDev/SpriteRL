@@ -12,4 +12,4 @@ func _on_health_changed(value, max_value):
 		set_progress_texture(red_bar)
 	else:
 		set_progress_texture(green_bar)
-		
+

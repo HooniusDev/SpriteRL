@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=1]
+[gd_scene load_steps=4 format=1]
 
 [ext_resource path="res://Scenes/mini_scenes/actors/player.gd" type="Script" id=1]
 [ext_resource path="res://Sprites/GameSpriteSheet_04.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/mini_scenes/misc/action_marker.tscn" type="PackedScene" id=3]
 
 [node name="player" type="Node2D" groups=[ "friendly_faction" ]]
 
@@ -17,11 +18,7 @@ frame = 14
 region = true
 region_rect = Rect2( 16, 0, 16, 16 )
 
-[node name="move_marker" type="Sprite" parent="."]
-
-visibility/visible = false
-z/z = 2
-centered = false
+[node name="move_marker" parent="." instance=ExtResource( 3 )]
 
 [node name="camera" type="Camera2D" parent="."]
 

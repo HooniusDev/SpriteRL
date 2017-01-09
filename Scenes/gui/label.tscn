@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://Sprites/font/8font.fnt" type="BitmapFont" id=1]
+[ext_resource path="res://Sprites/Atlas/gui/tooltip_bg.atex" type="Texture" id=2]
+
+[node name="label" type="Label"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 80.0
+margin/bottom = 16.0
+custom_fonts/font = ExtResource( 1 )
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="TextureFrame" type="TextureFrame" parent="."]
+
+visibility/behind_parent = true
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -4.0
+margin/top = -3.0
+margin/right = 44.0
+margin/bottom = 13.0
+texture = ExtResource( 2 )
+stretch_mode = 0
+
+

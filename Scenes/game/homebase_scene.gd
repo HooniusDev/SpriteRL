@@ -61,9 +61,14 @@ func next_actor( ):
 	#	next_actor()
 	_cur_actor = all_actors[_cur_actor_index]
 	if _cur_actor_index == 0:
-		#print("tick: " + str(tick))
+		print("tick: " + str(tick))
 		tick += 1
 		for actor in all_actors:
+			if actor.is_dead:
+				print("removing dead:" + str( actor.get_name()))
+				_on_remove_actor(actor)
+				actor.queue_free()
+				continue
 			actor.energy += 1 * actor.energy_regen_rate
 	if _cur_actor.is_in_group("player"):
 		get_node("map_manager").update_fov( _cur_actor.cell_pos, _cur_actor.sight_radius )

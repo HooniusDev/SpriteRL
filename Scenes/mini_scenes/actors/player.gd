@@ -1,26 +1,13 @@
 extends Node2D
 
-const CURSOR_N = preload("res://Sprites/Atlas/mouse_n.atex")
-const CURSOR_NE = preload("res://Sprites/Atlas/mouse_ne.atex")
-const CURSOR_E = preload("res://Sprites/Atlas/mouse_e.atex")
-const CURSOR_SE = preload("res://Sprites/Atlas/mouse_se.atex")
-const CURSOR_S = preload("res://Sprites/Atlas/mouse_s.atex")
-const CURSOR_SW = preload("res://Sprites/Atlas/mouse_sw.atex")
-const CURSOR_W = preload("res://Sprites/Atlas/mouse_w.atex")
-const CURSOR_NW = preload("res://Sprites/Atlas/mouse_nw.atex")
-const CURSOR_SHOOT = preload("res://Sprites/Atlas/shoot.atex")
-
-const cursors = [CURSOR_N,CURSOR_NE,CURSOR_E,CURSOR_SE,CURSOR_S,CURSOR_SW,CURSOR_W,CURSOR_NW]
-
-
 func get_name():
 	return "Cpl. Donk"
 	
 func health_to_string():
 	return str(health) + "/" + str(health_max)
 
-var inventory_scene = preload("res://Scenes/mini_scenes/actors/inventory.tscn")
-var inventory
+onready var inventory = preload("res://Scenes/mini_scenes/actors/inventory.tscn").instance()
+#var inventory
 var inventory_shown = false
 
 var targetting_mode = false
@@ -35,8 +22,20 @@ var sight_radius = 10
 var move_marker
 
 var health = 5
-var health_max =5
+var health_max = 10
+
 var melee_damage = 1
+
+var is_dead = false
+
+func get_ac():
+	var ac = 0
+	if inventory._armour != null:
+		ac += inventory._armour._armour_class
+	if inventory._helmet != null:
+		ac += inventory._helmet._armour_class
+	return ac
+
 var faction = "allied"
 
 var cell_pos setget cell_pos_set
@@ -55,14 +54,13 @@ func drop_item(item):
 	inventory.remove_item(item)
 	item.set_pos(get_pos())
 	globals.tilemap_controller.add_item(item)
-	
-	
 
 func parent_item( item ):
 	inventory.add_item( item )
 
 func take_damage(amount):
 	health -= amount
+	utils.on_damage( get_pos(), amount )
 	if health <= 0:
 		die()
 
@@ -70,8 +68,11 @@ func heal(amount):
 	if health < health_max:
 		health += amount
 		if health > health_max:
+			amount = health - health_max
 			health = health_max
+		utils.on_heal( get_pos(), amount )
 		print("You feel much better")
+		
 		return true
 	else:
 		return false
@@ -82,7 +83,7 @@ func die():
 
 func _ready():
 	globals.player = self
-	inventory = inventory_scene.instance()
+	#inventory = inventory_scene.instance()
 	add_child(inventory)
 	cell_pos = get_pos() / 16
 	get_node("/root/homebase_scene")._on_add_actor(self)
@@ -116,6 +117,11 @@ func toggle_inventory():
 	else:
 		inventory_shown = false
 		globals.gui_controller.hide_inventory()
+		
+func handle_mouse():
+	# ADD MOUSE CONTROL STUFF!!!
+	# CHAANGE CURSOR, SHOW TOOLTIP 
+	pass
 
 func _unhandled_input(event):
 	if inventory_shown == false:
@@ -127,9 +133,8 @@ func _unhandled_input(event):
 				#if typeof(blocker) == TYPE_OBJECT and blocker.has_method("get_name"):
 					#print(blocker.get_name())
 				if typeof(blocker) == TYPE_OBJECT and blocker.is_in_group("hostile_faction"):
-					move_marker.set_texture(CURSOR_SHOOT)
-					move_marker.show()
-					move_marker.set_offset( Vector2( (mouse_pos.x-cell_pos.x) * 16, (mouse_pos.y-cell_pos.y)*16) )
+					var pos = Vector2( (mouse_pos.x-cell_pos.x) * 16, (mouse_pos.y-cell_pos.y)*16)
+					move_marker.show_crosshair( pos)
 					if event.type == InputEvent.MOUSE_BUTTON:
 						if event.button_index == BUTTON_LEFT and event.pressed:
 							if inventory._weapon.shoot():
@@ -144,10 +149,10 @@ func _unhandled_input(event):
 				#move_marker.set_frame(3)
 				var dir = target - cell_pos
 				var dirs = directions.DirArray
-				print(dir)
 				for i in range(dirs.size()):
 					if dir == dirs[i]:
-						move_marker.set_texture( cursors[i] )
+						#move_marker.set_texture( cursors[i] )
+						move_marker.show_arrow( i )
 				move_marker.show()
 			if target == null: # returned null so its a wall etc.
 				move_marker.hide()
@@ -155,6 +160,7 @@ func _unhandled_input(event):
 				#move_marker.set_frame(13)
 				move_marker.show()
 				action = "attack"
+				#GET TO HIT MODIFIER
 					#move_marker.set_pos( target.cell_pos )
 	
 			#make a move

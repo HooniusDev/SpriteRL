@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=1]
+[gd_scene load_steps=16 format=1]
 
 [ext_resource path="res://Scenes/game/homebase_scene.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/game/map_manager.gd" type="Script" id=2]
@@ -8,11 +8,13 @@
 [ext_resource path="res://Scenes/mini_scenes/items/rifle.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/mini_scenes/items/ammunition.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/mini_scenes/items/first_aid_kit.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/mini_scenes/actors/player.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/mini_scenes/actors/enemy.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scripts/gui/gui_manager.gd" type="Script" id=11]
-[ext_resource path="res://Scenes/gui/inventory_gui.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Sprites/font/silc_8.fnt" type="BitmapFont" id=13]
+[ext_resource path="res://Scenes/mini_scenes/items/armour.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/mini_scenes/items/helmet.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/mini_scenes/actors/player.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/mini_scenes/actors/enemy.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scripts/gui/gui_manager.gd" type="Script" id=13]
+[ext_resource path="res://Scenes/gui/inventory_gui.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Sprites/font/silc_8.fnt" type="BitmapFont" id=15]
 
 [node name="homebase_scene" type="Node"]
 
@@ -71,11 +73,11 @@ transform/pos = Vector2( 160, 112 )
 
 [node name="ammunition" parent="map_manager/tilemap/items" instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 177, 96 )
+transform/pos = Vector2( 176, 96 )
 
 [node name="ammunition1" parent="map_manager/tilemap/items" instance=ExtResource( 7 )]
 
-transform/pos = Vector2( 177, 128 )
+transform/pos = Vector2( 176, 128 )
 
 [node name="first_aid_kit" parent="map_manager/tilemap/items" instance=ExtResource( 8 )]
 
@@ -93,17 +95,25 @@ transform/pos = Vector2( 176, 128 )
 
 transform/pos = Vector2( 176, 128 )
 
+[node name="armour" parent="map_manager/tilemap/items" instance=ExtResource( 9 )]
+
+transform/pos = Vector2( 192, 112 )
+
+[node name="armour 2" parent="map_manager/tilemap/items" instance=ExtResource( 10 )]
+
+transform/pos = Vector2( 192, 128 )
+
 [node name="actors" type="Node2D" parent="map_manager/tilemap"]
 
-[node name="player" parent="map_manager/tilemap/actors" groups=[ "player" ] instance=ExtResource( 9 )]
+[node name="player" parent="map_manager/tilemap/actors" groups=[ "player" ] instance=ExtResource( 11 )]
 
 transform/pos = Vector2( 80, 176 )
 
-[node name="enemy1" parent="map_manager/tilemap/actors" instance=ExtResource( 10 )]
+[node name="enemy1" parent="map_manager/tilemap/actors" instance=ExtResource( 12 )]
 
 transform/pos = Vector2( 64, 144 )
 
-[node name="enemy2" parent="map_manager/tilemap/actors" instance=ExtResource( 10 )]
+[node name="enemy2" parent="map_manager/tilemap/actors" instance=ExtResource( 12 )]
 
 transform/pos = Vector2( 272, 208 )
 
@@ -131,7 +141,7 @@ layer = 1
 offset = Vector2( 0, 0 )
 rotation = 0.0
 scale = Vector2( 1, 1 )
-script/script = ExtResource( 11 )
+script/script = ExtResource( 13 )
 
 [node name="game_over" type="Label" parent="gui"]
 
@@ -170,7 +180,7 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="inventory_gui" parent="gui" instance=ExtResource( 12 )]
+[node name="inventory_gui" parent="gui" instance=ExtResource( 14 )]
 
 visibility/visible = false
 
@@ -197,7 +207,7 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 101.0
 margin/bottom = 14.0
-custom_fonts/font = ExtResource( 13 )
+custom_fonts/font = ExtResource( 15 )
 text = "Items to pickup"
 percent_visible = 1.0
 lines_skipped = 0

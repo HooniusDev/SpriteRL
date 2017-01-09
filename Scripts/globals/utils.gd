@@ -1,6 +1,8 @@
 #utils.gd
 extends Node
 
+const damage_label = preload("res://Scenes/mini_scenes/misc/damage_label.tscn")
+
 var map_manager
 
 static func resolve_shot( attacker, target ):
@@ -8,6 +10,20 @@ static func resolve_shot( attacker, target ):
 	print("You hit the: " + target.get_name() + "for " + str(attacker.inventory._weapon._damage)) 
 	target.take_damage( attacker.inventory._weapon._damage )
 	return #damage
+
+func on_damage( pos, amount ):
+	var label = damage_label.instance()
+	label.set_pos( Vector2( pos.x + 6, pos.y - 8 ))
+	map_manager.add_child( label )
+	label.create(amount)
+	pass
+	
+func on_heal( pos, amount ):
+	var label = damage_label.instance()
+	label.set_pos( Vector2( pos.x + 8, pos.y - 8 ))
+	map_manager.add_child( label )
+	label.create(amount, Color(1,0,0))
+	pass
 
 func check_los( p0, radius):
 	var line = get_line( p0, map_manager.player.cell_pos)

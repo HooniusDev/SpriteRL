@@ -4,6 +4,8 @@ extends Node
 var _items = []
 
 var _weapon
+var _armour
+var _helmet
 
 func get_inventory():
 	return _items
@@ -28,6 +30,33 @@ func remove_item(item):
 	if _weapon == item:
 		_weapon = null
 	remove_child(item)
+
+func wear(index):
+	var item = _items[index]
+	if item.is_in_group("armour"):
+		if _armour != null:
+			#print("weapon was NOT null")
+			#_items.erase(index)
+			_items[index] = _armour
+			_armour = item
+		else:
+			#print("weapon was null")
+			_items.erase(item)
+			_armour = item
+		return
+	if item.is_in_group("helmet"):
+		if _helmet != null:
+			#print("weapon was NOT null")
+			#_items.erase(index)
+			_items[index] = _helmet
+			_helmet = item
+		else:
+			#print("weapon was null")
+			_items.erase(item)
+			_helmet = item
+		return
+	print("Not AN ARMOUR or HELMET")
+
 
 func ready_weapon(index):
 	var item = _items[index]

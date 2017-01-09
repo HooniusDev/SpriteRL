@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=1]
 
-[ext_resource path="res://Sprites/Atlas/inventory_slot.atex" type="Texture" id=1]
+[ext_resource path="res://Sprites/Atlas/gui/inventory_slot.atex" type="Texture" id=1]
 [ext_resource path="res://Sprites/font/8font.fnt" type="BitmapFont" id=2]
 
 [node name="0" type="TextureFrame"]

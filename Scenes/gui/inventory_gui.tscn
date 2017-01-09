@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=11 format=1]
 
 [ext_resource path="res://Sprites/font/silc_8.fnt" type="BitmapFont" id=1]
 [ext_resource path="res://Scenes/gui/inventory_gui.gd" type="Script" id=2]
-[ext_resource path="res://Sprites/inventory_bg.png" type="Texture" id=3]
+[ext_resource path="res://Sprites/Atlas/SourceImages/gui/gui_area.png" type="Texture" id=3]
 [ext_resource path="res://Sprites/font/8font.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://Scenes/gui/equipped_items.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Sprites/Atlas/gui/small_button_up.atex" type="Texture" id=6]
+[ext_resource path="res://Sprites/Atlas/gui/small_button_down.atex" type="Texture" id=7]
+[ext_resource path="res://Sprites/Atlas/gui/small_button_hover.atex" type="Texture" id=8]
 
 [sub_resource type="Theme" id=1]
 
@@ -38,20 +42,6 @@ margin/right = 40.0
 margin/bottom = 40.0
 script/script = ExtResource( 2 )
 
-[node name="bg" type="TextureFrame" parent="."]
-
-visibility/behind_parent = true
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 0.0
-margin/top = 16.0
-margin/right = 320.0
-margin/bottom = 163.0
-texture = ExtResource( 3 )
-stretch_mode = 0
-
 [node name="inventory_items" type="Container" parent="."]
 
 anchor/right = 1
@@ -60,10 +50,71 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 6.0
-margin/top = 22.0
-margin/right = -74.0
-margin/bottom = -126.0
+margin/left = 0.0
+margin/top = 16.0
+margin/right = -72.0
+margin/bottom = -120.0
+
+[node name="Inventory_label_area" type="Patch9Frame" parent="inventory_items"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = -16.0
+margin/right = 112.0
+margin/bottom = 0.0
+
+[node name="Patch9Frame1" type="Patch9Frame" parent="inventory_items/Inventory_label_area"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 112.0
+margin/bottom = 16.0
+texture = ExtResource( 3 )
+patch_margin/left = 2
+patch_margin/top = 2
+patch_margin/right = 2
+patch_margin/bottom = 2
+
+[node name="INVENTORY_LABEL" type="Label" parent="inventory_items/Inventory_label_area"]
+
+rect/scale = Vector2( 2, 2 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 56.0
+margin/bottom = 8.0
+custom_fonts/font = ExtResource( 4 )
+text = "Inventory"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Patch9Frame" type="Patch9Frame" parent="inventory_items"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 112.0
+margin/bottom = 144.0
+texture = ExtResource( 3 )
+patch_margin/left = 2
+patch_margin/top = 2
+patch_margin/right = 2
+patch_margin/bottom = 2
 
 [node name="grid" type="GridContainer" parent="inventory_items"]
 
@@ -73,15 +124,59 @@ focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = -1.0
-margin/top = -1.0
-margin/right = 3.0
-margin/bottom = 4.0
+margin/left = 6.0
+margin/top = 6.0
+margin/right = 6.0
+margin/bottom = 6.0
 custom_constants/vseparation = 2
 custom_constants/hseparation = 2
 columns = 5
 
-[node name="INVENTORY_LABEL" type="Label" parent="."]
+[node name="equipped_items" parent="." instance=ExtResource( 5 )]
+
+margin/left = 112.0
+margin/right = 224.0
+
+[node name="char_info" type="Container" parent="."]
+
+editor/display_folded = true
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 224.0
+margin/top = 16.0
+margin/right = 352.0
+margin/bottom = 160.0
+
+[node name="char_info_label_area" type="Patch9Frame" parent="char_info"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = -16.0
+margin/right = 128.0
+margin/bottom = 0.0
+
+[node name="Patch9Frame3" type="Patch9Frame" parent="char_info/char_info_label_area"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 128.0
+margin/bottom = 16.0
+texture = ExtResource( 3 )
+patch_margin/left = 2
+patch_margin/top = 2
+patch_margin/right = 2
+patch_margin/bottom = 2
+
+[node name="CHAR_INFO" type="Label" parent="char_info/char_info_label_area"]
 
 rect/scale = Vector2( 2, 2 )
 focus/ignore_mouse = true
@@ -90,219 +185,31 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 53.0
-margin/bottom = 7.0
-text = "Inventory"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="equipped_items" type="Container" parent="."]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 105.0
-margin/top = 16.0
-margin/right = 256.0
-margin/bottom = 160.0
-
-[node name="head_gear" type="TextureFrame" parent="equipped_items"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 49.0
-margin/top = 8.0
-margin/right = 69.0
-margin/bottom = 28.0
-stretch_mode = 0
-
-[node name="label" type="Label" parent="equipped_items/head_gear"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -28.0
-margin/top = 2.0
-margin/right = -4.0
-margin/bottom = 9.0
-custom_fonts/font = ExtResource( 4 )
-text = "head"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="weapon" type="TextureFrame" parent="equipped_items"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 80.0
-margin/top = 72.0
-margin/right = 96.0
-margin/bottom = 88.0
-stretch_mode = 0
-
-[node name="label" type="Label" parent="equipped_items/weapon"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -5.0
-margin/top = -9.0
-margin/right = 32.0
-margin/bottom = -2.0
-custom_fonts/font = ExtResource( 4 )
-text = "weapon"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="ammo" type="Label" parent="equipped_items/weapon"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 4.0
-margin/top = 10.0
-margin/right = 17.0
-margin/bottom = 17.0
-custom_fonts/font = ExtResource( 4 )
-text = "na"
-align = 2
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="eye_wear" type="TextureFrame" parent="equipped_items"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 49.0
-margin/top = 33.0
-margin/right = 69.0
-margin/bottom = 53.0
-stretch_mode = 0
-
-[node name="label" type="Label" parent="equipped_items/eye_wear"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 22.0
-margin/top = 1.0
-margin/right = 46.0
+margin/right = 64.0
 margin/bottom = 8.0
 custom_fonts/font = ExtResource( 4 )
-text = "eyes"
+text = "STATS"
+align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="armour" type="TextureFrame" parent="equipped_items"]
+[node name="Patch9Frame2" type="Patch9Frame" parent="char_info"]
 
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 40.0
-margin/top = 77.0
-margin/right = 60.0
-margin/bottom = 97.0
-stretch_mode = 0
-
-[node name="label" type="Label" parent="equipped_items/armour"]
-
+visibility/behind_parent = true
 focus/ignore_mouse = true
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -16.0
-margin/top = -8.0
-margin/right = 21.0
-margin/bottom = -1.0
-custom_fonts/font = ExtResource( 4 )
-text = "armour"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="hands" type="TextureFrame" parent="equipped_items"]
-
-focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 14.0
-margin/top = 92.0
-margin/right = 34.0
-margin/bottom = 112.0
-stretch_mode = 0
-
-[node name="label" type="Label" parent="equipped_items/hands"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = -4.0
-margin/top = 20.0
-margin/right = 27.0
-margin/bottom = 27.0
-custom_fonts/font = ExtResource( 4 )
-text = "hands"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="feet" type="TextureFrame" parent="equipped_items"]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 48.0
-margin/top = 113.0
-margin/right = 68.0
-margin/bottom = 133.0
-stretch_mode = 0
-
-[node name="label" type="Label" parent="equipped_items/feet"]
-
-focus/ignore_mouse = true
-focus/stop_mouse = false
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 21.0
-margin/top = 13.0
-margin/right = 42.0
-margin/bottom = 20.0
-custom_fonts/font = ExtResource( 4 )
-text = "feet"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-
-[node name="char_info" type="Container" parent="."]
-
-focus/ignore_mouse = false
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 2
-margin/left = 224.0
-margin/top = 19.0
-margin/right = 317.0
-margin/bottom = 159.0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 128.0
+margin/bottom = 144.0
+texture = ExtResource( 3 )
+patch_margin/left = 2
+patch_margin/top = 2
+patch_margin/right = 2
+patch_margin/bottom = 2
 
 [node name="1st" type="VBoxContainer" parent="char_info"]
 
@@ -310,10 +217,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = false
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 6.0
-margin/top = 4.0
-margin/right = 86.0
-margin/bottom = 48.0
+margin/left = 3.0
+margin/top = 16.0
+margin/right = 125.0
+margin/bottom = 60.0
 alignment = 0
 
 [node name="name_container" type="PanelContainer" parent="char_info/1st"]
@@ -324,7 +231,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 80.0
+margin/right = 122.0
 margin/bottom = 7.0
 custom_styles/panel = SubResource( 2 )
 
@@ -336,7 +243,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 80.0
+margin/right = 122.0
 margin/bottom = 7.0
 custom_fonts/font = ExtResource( 4 )
 text = "Name"
@@ -352,7 +259,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 80.0
+margin/right = 122.0
 margin/bottom = 7.0
 custom_fonts/font = ExtResource( 4 )
 text = "Name"
@@ -369,7 +276,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 11.0
-margin/right = 80.0
+margin/right = 122.0
 margin/bottom = 18.0
 custom_styles/panel = SubResource( 2 )
 
@@ -381,7 +288,7 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 80.0
+margin/right = 122.0
 margin/bottom = 7.0
 custom_fonts/font = ExtResource( 4 )
 text = "health"
@@ -397,11 +304,88 @@ size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 0.0
 margin/top = 0.0
-margin/right = 80.0
+margin/right = 122.0
 margin/bottom = 7.0
 custom_fonts/font = ExtResource( 4 )
 text = "health"
 align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ac_container" type="PanelContainer" parent="char_info/1st"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 22.0
+margin/right = 122.0
+margin/bottom = 29.0
+custom_styles/panel = SubResource( 2 )
+
+[node name="label" type="Label" parent="char_info/1st/ac_container"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 122.0
+margin/bottom = 7.0
+custom_fonts/font = ExtResource( 4 )
+text = "ac"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ac" type="Label" parent="char_info/1st/ac_container"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 122.0
+margin/bottom = 7.0
+custom_fonts/font = ExtResource( 4 )
+text = "ac"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="close_button" type="TextureButton" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 300.0
+margin/top = 138.0
+margin/right = 342.0
+margin/bottom = 154.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+textures/normal = ExtResource( 6 )
+textures/pressed = ExtResource( 7 )
+textures/hover = ExtResource( 8 )
+
+[node name="Label" type="Label" parent="close_button"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 8.0
+margin/top = 3.0
+margin/right = 36.0
+margin/bottom = 16.0
+text = "close"
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1

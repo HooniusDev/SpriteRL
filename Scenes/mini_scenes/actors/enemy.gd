@@ -13,16 +13,20 @@ var health_max = 10
 var melee_damage = 1
 var faction = "hostile"
 
+var is_dead = false
+
 func take_damage(amount):
 	health -= amount
 	get_node("healthbar")._on_health_changed(health, health_max)
+	utils.on_damage( get_pos(), amount )
 	if health <= 0:
 		die()
 		
 func die():
-	get_node("/root/homebase_scene")._on_remove_actor(self)
+	#get_node("/root/homebase_scene")._on_remove_actor(self)
 	print("Enemy yells: ARRGGHH I DIES!" )
-	queue_free()
+	get_node("sprite").set_frame(17)
+	is_dead = true
 	pass
 
 var cell_pos setget cell_pos_set

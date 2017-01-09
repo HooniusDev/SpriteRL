@@ -38,6 +38,27 @@ func remove_item(item):
 
 func _ready():
 	holder = get_node("holder")
-	# Called every time the node is added to the scene.
-	# Initialization here
+	#get_node("control").connect("mouse_enter",self,"_on_mouse_enter")
+	#get_node("control").connect("mouse_exit",self,"_on_mouse_exit")
 	pass
+
+#func _on_mouse_enter():
+#	set_z( 10 )
+#	var c = get_node("control")
+#	var font = load("res://Sprites/font/8font.fnt")
+#	var text = ""
+#	var count = 0
+#	for item in _items:
+#		var label = load("res://Scenes/gui/label.tscn").instance()
+#		c.add_child(label)
+#		#label.add_font_override( "8font", font )
+#		label.set_text(item.get_name())
+#		label.set_pos( Vector2( 16, count * 12 ))
+#		count += 1
+#
+#func _on_mouse_exit():
+#	set_z(0)
+#	var c = get_node("control")
+#	for child in c.get_children():
+#		child.queue_free()
+
